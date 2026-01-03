@@ -68,15 +68,15 @@ final class Loader
     {
         $file = __DIR__ . $path . '.php' ?? null;
         if (is_file($file) === false) {
-            echo "FILE NOT FOUND: {$file}\n";   
+            echo "FILE NOT FOUND: {$file}\n";
             throw new LogicException("File not found: {$file}");
         }
         return require_once $file;
     }
 
-    public static function routes($modules = ''): array
+    public static function getModulePath(string $module): array
     {
-        $modules = array_map(fn($module) => ucfirst($module), explode('/', $modules));
+        $modules = array_map(fn($module) => ucfirst($module), explode('/', $module));
         $module = end($modules);
         $path = '';
         if (count($modules) > 1)
@@ -84,6 +84,12 @@ final class Loader
 
         $path .= $module;
 
+        return [$path, $module];
+    }
+
+    public static function routes($module = ''): array
+    {
+        [$path, $module] = Loader::getModulePath($module);
         return self::fromFile("/../app/Features/{$path}/{$module}Routes");
     }
 }
