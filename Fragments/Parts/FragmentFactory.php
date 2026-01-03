@@ -46,7 +46,6 @@ final class FragmentFactory
     public static function service(string $module): ServiceFragment
     {
         // Should load repository first
-        self::repository($module);
         return Loader::new(
             ServiceFragment::class,
             $module,

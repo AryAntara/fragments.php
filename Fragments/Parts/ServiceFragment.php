@@ -2,7 +2,7 @@
 
 namespace Fragments\Parts;
 
-use App\Features\User\UserServices;
+use App\Features\User\UserService;
 use Fragments\Context;
 use Fragments\Loader;
 
@@ -15,8 +15,18 @@ class ServiceFragment implements Fragment
 
     public function boot(Context $ctx)
     {
-        $module = ucfirst($this->module);
-        Loader::fromFile("/../app/Features/{$module}/{$module}Service");
-        $ctx->services = new UserServices($ctx->repository);
+               $modules = $this->module;
+        $modules = array_map(fn($module) => ucfirst($module), explode('/', $modules));
+        $module = end($modules);
+        $path = '';
+        if (count($modules) > 1)
+            $path .= implode('/', array_slice($modules, 0, -1)) . '/';
+
+        $path .= $module;
+
+        $full_path = "/../app/Features/{$path}/";
+        Loader::fromFile($full_path . "{$module}Service");
+        $service_class = "App\\Features\\" . str_replace('/', '\\', $path) . "\\{$module}Service";        
+        $ctx->service = new $service_class($ctx->repository);
     }
 }

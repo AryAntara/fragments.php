@@ -2,7 +2,7 @@
 
 namespace App\Features\User;
 
-class UserServices {
+class UserService {
     public function __construct(
         private UserRepository $userRepository
     ) {

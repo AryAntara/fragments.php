@@ -8,7 +8,7 @@ use Fragments\Database\Database;
 
 final class Context
 {
-    public $services, $repository;
+    public $service, $repository;
     public ?Database $db, $session;
     public ?HTML $html;
 
