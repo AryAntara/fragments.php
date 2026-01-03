@@ -11,7 +11,7 @@ interface Fragment
 
 final class FragmentFactory
 {
-    public static function response()
+    public static function response(): ResponseFragment
     {
         return
             Loader::new(
@@ -19,7 +19,7 @@ final class FragmentFactory
             );
     }
 
-    public static function database()
+    public static function database(): DatabaseFragment
     {
         return
             Loader::new(
@@ -27,7 +27,7 @@ final class FragmentFactory
             );
     }
 
-    public static function entity(string $module)
+    public static function entity(string $module): EntityFragment
     {
         return Loader::new(
             EntityFragment::class,
@@ -35,7 +35,7 @@ final class FragmentFactory
         );
     }
 
-    public static function repository(string $module)
+    private static function repository(string $module): RepositoryFragment
     {
         return Loader::new(
             RepositoryFragment::class,
@@ -43,16 +43,26 @@ final class FragmentFactory
         );
     }
 
-    public static function service(string $module)
+    public static function service(string $module): ServiceFragment
     {
+        // Should load repository first
+        self::repository($module);
         return Loader::new(
             ServiceFragment::class,
             $module,
         );
     }
 
+    public static function html(): HTMLFragment
+    {
+        return Loader::new(
+            HTMLFragment::class,
+        );
+    }
+
     /**
      * Boot up all services for a modules 
+     * @return array<Fragment>
      */
     public static function boot(string $module)
     {

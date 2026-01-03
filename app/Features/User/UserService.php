@@ -1,2 +1,15 @@
 <?php 
-echo "HI THIS IS MY FIRST PROGRAM THAT I MADE";
+
+namespace App\Features\User;
+
+class UserServices {
+    public function __construct(
+        private UserRepository $userRepository
+    ) {
+    }
+
+    public function getUserById(int $id): ?UserEntity {
+        return $this->userRepository->findOne($id);
+    }
+    
+}

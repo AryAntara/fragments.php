@@ -6,6 +6,7 @@ class Response {
     public function json(
         array $content
     ){
+        header('Content-Type: application/json');
         return json_encode($content);
     }
 

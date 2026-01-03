@@ -17,8 +17,10 @@ Loader::loadFilesInDirectory('/../Fragments', [
 ]);
 
 $user_routes = Loader::routes('user');
+$home_routes = Loader::routes('page/home');
 $dispatcher = new Dispatcher([
-    ...$user_routes
+    ...$user_routes,
+    ...$home_routes,
 ]);
 
 $response = $dispatcher->dispatch(

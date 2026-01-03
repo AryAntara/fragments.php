@@ -7,8 +7,11 @@ use LogicException;
 final class Loader
 {
     private static array $class_maps = [
+        Http\HTML::class => __DIR__ . '/Http/HTML.php',
         Http\Response::class => __DIR__ . '/Http/Response.php',
         Database\Database::class => __DIR__ . '/Database/Database.php',
+
+        Parts\HTMLFragment::class => __DIR__ . '/Parts/HTMLFragment.php',
         Parts\ResponseFragment::class => __DIR__ . '/Parts/ResponseFragment.php',
         Parts\DatabaseFragment::class => __DIR__ . '/Parts/DatabaseFragment.php',
         Parts\EntityFragment::class => __DIR__ . '/Parts/EntityFragment.php',
@@ -38,7 +41,7 @@ final class Loader
         return new $class(...$args);
     }
 
-    public static function static(string $class, string $method, mixed ...$args): object
+    public static function static(string $class, string $method, mixed ...$args): mixed
     {
         self::load($class);
         return $class::$method(...$args);
@@ -63,12 +66,24 @@ final class Loader
 
     public static function fromFile(string $path): mixed
     {
-        return require_once __DIR__ . $path . '.php' ?? null;
+        $file = __DIR__ . $path . '.php' ?? null;
+        if (is_file($file) === false) {
+            echo "FILE NOT FOUND: {$file}\n";   
+            throw new LogicException("File not found: {$file}");
+        }
+        return require_once $file;
     }
 
-    public static function routes($module = ''): array
+    public static function routes($modules = ''): array
     {
-        $module = ucfirst($module);
-        return self::fromFile("/../app/Features/{$module}/{$module}Routes");
+        $modules = array_map(fn($module) => ucfirst($module), explode('/', $modules));
+        $module = end($modules);
+        $path = '';
+        if (count($modules) > 1)
+            $path .= implode('/', array_slice($modules, 0, -1)) . '/';
+
+        $path .= $module;
+
+        return self::fromFile("/../app/Features/{$path}/{$module}Routes");
     }
 }
