@@ -1,9 +1,10 @@
 <?php
 namespace Fragments\Parts;
 
+use Fragments\Interfaces\FragmentInterface;
 use Fragments\Loader;
 
-class EntityFragment implements Fragment
+class EntityFragment implements FragmentInterface
 {
     public function __construct(
         public string $module,

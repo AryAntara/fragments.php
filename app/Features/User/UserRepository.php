@@ -2,7 +2,7 @@
 
 namespace App\Features\User;
 
-use Fragments\Database\Database;
+use Fragments\Lib\Database\Database;
 
 class UserRepository
 {

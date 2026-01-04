@@ -115,7 +115,6 @@
                 predictable performance, and zero hidden behavior.
             </p>
         </header>
-
         <section>
             <h2>Philosophy</h2>
             <ul>

@@ -2,10 +2,11 @@
 namespace Fragments\Parts;
 
 use Fragments\Context;
-use Fragments\Http\Response;
+use Fragments\Interfaces\FragmentInterface;
+use Fragments\Lib\Http\Response;
 use Fragments\Loader;
 
-final class ResponseFragment implements Fragment
+final class ResponseFragment implements FragmentInterface
 {
     public function boot(Context $ctx)
     {

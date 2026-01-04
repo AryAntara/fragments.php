@@ -4,9 +4,10 @@ namespace Fragments\Parts;
 
 use App\Features\User\UserService;
 use Fragments\Context;
+use Fragments\Interfaces\FragmentInterface;
 use Fragments\Loader;
 
-class ServiceFragment implements Fragment
+class ServiceFragment implements FragmentInterface
 {
     public function __construct(
         public string $module,

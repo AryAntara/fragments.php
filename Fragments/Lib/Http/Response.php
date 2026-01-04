@@ -1,5 +1,5 @@
 <?php 
-namespace Fragments\Http;
+namespace Fragments\Lib\Http;
 
 class Response {
 

@@ -5,11 +5,11 @@ namespace App\Features;
 use App\Features\User\UserEntity;
 use App\Features\User\UserService;
 use Fragments\Context;
-use Fragments\Http\Request;
+use Fragments\Lib\Http\Request;
 use Fragments\Parts\FragmentFactory;
-use Fragments\Route;
+use Fragments\Factories\RouterFactory;
 
-$get_user = Route::get('/user',
+$get_user = RouterFactory::get('/user',
     function (Request $request, Context $ctx) {
 
         /** @var UserService $service */

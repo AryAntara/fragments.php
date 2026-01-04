@@ -1,5 +1,5 @@
 <?php 
-namespace Fragments\Database;
+namespace Fragments\Lib\Database;
 use PDO;
 final class Database
 {

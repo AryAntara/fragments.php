@@ -1,8 +1,8 @@
 <?php
 
-namespace Fragments\Http;
+namespace Fragments\Lib\Http;
 
-use Fragments\Router\RouterMethod;
+use Fragments\Enums\RouterMethod;
 
 class Request
 {
@@ -17,6 +17,9 @@ class Request
             $_SERVER['REQUEST_URI'],
             match ($_SERVER['REQUEST_METHOD']) {
                 'GET' => RouterMethod::GET,
+                'POST' => RouterMethod::POST,
+                'PUT' => RouterMethod::PUT,
+                'DELETE' => RouterMethod::DELETE,
             }
         );
 

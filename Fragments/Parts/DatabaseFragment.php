@@ -2,11 +2,12 @@
 namespace Fragments\Parts;
 
 use Fragments\Context;
-use Fragments\Database\Database;
-use Fragments\Http\Request;
+use Fragments\Interfaces\FragmentInterface;
+use Fragments\Lib\Database\Database;
+use Fragments\Lib\Http\Request;
 use Fragments\Loader;
 
-final class DatabaseFragment implements Fragment
+final class DatabaseFragment implements FragmentInterface
 {
     public function boot(Context $context): void
     {

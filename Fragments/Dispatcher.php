@@ -2,9 +2,11 @@
 
 namespace Fragments;
 
+use Closure;
 use Fragments\Context;
-use Fragments\Http\Request;
-use Fragments\Http\Response;
+use Fragments\Interfaces\RouterInterface;
+use Fragments\Lib\Http\Request;
+use Fragments\Lib\Http\Response;
 use Fragments\Router\Get;
 use Fragments\Router\Router;
 use Fragments\Loader;
@@ -21,9 +23,9 @@ final class Dispatcher
     }
 
     public function dispatch(Request $request): string
-    {                
+    {
         foreach ($this->routes as $route) {
-            
+
             if (!$this->matches($route, $request)) {
                 continue;
             }
@@ -34,7 +36,7 @@ final class Dispatcher
         return Loader::static(Response::class, 'notFound');
     }
 
-    private function matches(Router $route, Request $request): bool
+    private function matches(RouterInterface $route, Request $request): bool
     {
         return $route->method() === $request->method()
             && $route->path() === $request->path();
@@ -45,12 +47,12 @@ final class Dispatcher
         Request $request
     ): string {
         $context = new Context();
-        
+
         // Boot fragments (explicit, ordered)        
-        foreach ($route->fragments as 
-        /** @var Fragment */
-        $fragment) {
-            $fragment->boot($context);
+        foreach ($route->fragments as
+            /** @var Closure<FragmentInterface> */
+            $fragment) {            
+            $fragment()->boot($context);
         }
 
         // Execute handler

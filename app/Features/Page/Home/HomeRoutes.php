@@ -3,11 +3,11 @@
 namespace App\Features\Page\Home;
 
 use Fragments\Context;
-use Fragments\Http\Request;
+use Fragments\Lib\Http\Request;
 use Fragments\Parts\FragmentFactory;
-use Fragments\Route;
+use Fragments\Factories\RouterFactory;
 
-$get_home = Route::get('/home',
+$get_home = RouterFactory::get('/home',
     fn (Request $request, Context $ctx) =>
         $ctx->html->load('index', [
             'title' => 'Welcome to the Home Page',

@@ -3,16 +3,22 @@
 require_once __DIR__ . '/../Fragments/Loader.php';
 
 use Fragments\Dispatcher;
-use Fragments\Http\Request;
+use Fragments\Lib\Http\Request;
 use Fragments\Loader;
 
 Loader::loadFilesInDirectory('/../Fragments', [
-    'Route',
-    'Parts/FragmentFactory',
-    'Router/Router',
-    'Router/Get',
+    'Interfaces/FragmentInterface',
+    'Interfaces/RouterInterface',  
+    'Factories/RouterFactory',
+    'Factories/FragmentFactory',
+    'Lib/Router/Router',
+    'Lib/Router/Get',
+    'Lib/Router/Post',
+    'Lib/Router/Delete',
+    'Lib/Router/Put',
+    'Enums/RouterMethod',
     'Dispatcher',
-    'Http/Request',
+    'Lib/Http/Request',
     'Context',
 ]);
 
@@ -27,4 +33,4 @@ $response = $dispatcher->dispatch(
     Request::fromGlobals()
 );
 
-echo $response;
+// echo $response;

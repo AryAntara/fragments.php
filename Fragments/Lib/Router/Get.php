@@ -1,11 +1,12 @@
 <?php
 namespace Fragments\Router;
 
+use Fragments\Enums\RouterMethod;
+use Fragments\Interfaces\RouterInterface;
 use Fragments\Loader;
 
-class Get implements Router
+class Get extends Router implements RouterInterface
 {
-    use BaseRouter;
 
     public function __construct(
         public string $path,

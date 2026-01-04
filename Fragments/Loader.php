@@ -7,9 +7,10 @@ use LogicException;
 final class Loader
 {
     private static array $class_maps = [
-        Http\HTML::class => __DIR__ . '/Http/HTML.php',
-        Http\Response::class => __DIR__ . '/Http/Response.php',
-        Database\Database::class => __DIR__ . '/Database/Database.php',
+        Lib\Html\HTML::class => __DIR__ . '/Lib/Html/HTML.php',
+        Lib\Http\Response::class => __DIR__ . '/Lib/Http/Response.php',
+        Lib\Http\Request::class => __DIR__ . '/Lib/Http/Request.php',
+        Lib\Database\Database::class => __DIR__ . '/Lib/Database/Database.php',
 
         Parts\HTMLFragment::class => __DIR__ . '/Parts/HTMLFragment.php',
         Parts\ResponseFragment::class => __DIR__ . '/Parts/ResponseFragment.php',
@@ -36,7 +37,7 @@ final class Loader
     }
 
     public static function new(string $class, mixed ...$args): object
-    {
+    {        
         self::load($class);
         return new $class(...$args);
     }
@@ -64,18 +65,19 @@ final class Loader
         );
     }
 
-    public static function fromFile(string $path): mixed
-    {
-        $file = __DIR__ . $path . '.php' ?? null;
+    public static function fromFile(string $path, mixed $data = null): mixed
+    {        
+        $file = __DIR__ . $path . '.php' ?? null;        
         if (is_file($file) === false) {
             echo "FILE NOT FOUND: {$file}\n";
             throw new LogicException("File not found: {$file}");
         }
+        // Include file with $data available in local scope
         return require_once $file;
     }
 
     public static function getModulePath(string $module): array
-    {
+    {        
         $modules = array_map(fn($module) => ucfirst($module), explode('/', $module));
         $module = end($modules);
         $path = '';
@@ -89,7 +91,8 @@ final class Loader
 
     public static function routes($module = ''): array
     {
-        [$path, $module] = Loader::getModulePath($module);
+        [$path, $module] = Loader::getModulePath($module);        
+
         return self::fromFile("/../app/Features/{$path}/{$module}Routes");
     }
 }
