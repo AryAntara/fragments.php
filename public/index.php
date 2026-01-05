@@ -6,21 +6,21 @@ use Fragments\Dispatcher;
 use Fragments\Lib\Http\Request;
 use Fragments\Loader;
 
-Loader::loadFilesInDirectory('/../Fragments', [
-    'Interfaces/FragmentInterface',
-    'Interfaces/RouterInterface',
-    'Interfaces/ContextInterface',
-    'Factories/RouterFactory',
-    'Factories/FragmentFactory',
-    'Lib/Router/Router',
-    'Lib/Router/Get',
-    'Lib/Router/Post',
-    'Lib/Router/Delete',
-    'Lib/Router/Put',
-    'Enums/RouterMethod',
-    'Dispatcher',
-    'Lib/Http/Request',
-    'Context',
+Loader::loadFiles([
+    '/Interfaces/FragmentInterface',
+    '/Interfaces/RouterInterface',
+    '/Interfaces/ContextInterface',
+    '/Factories/RouterFactory',
+    '/Factories/FragmentFactory',
+    '/Lib/Router/Router',
+    '/Lib/Router/Get',
+    '/Lib/Router/Post',
+    '/Lib/Router/Delete',
+    '/Lib/Router/Put',
+    '/Enums/RouterMethod',
+    '/Dispatcher',
+    '/Lib/Http/Request',
+    '/Context',
 ]);
 
 $user_routes = Loader::routes('user');
