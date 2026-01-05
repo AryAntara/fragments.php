@@ -14,6 +14,7 @@ HOW IT WORKS --
 
 ## Todo 
 ### Fragments 
+[x] Add Custom Context
 [] Add Error Handling Fragment
 [] Add Logging Fragment
 [] Add Configuration Fragment
