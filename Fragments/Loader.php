@@ -2,6 +2,7 @@
 namespace Fragments;
 
 use Fragments\FragmentFactory;
+use Fragments\Interfaces\ContextInterface;
 use LogicException;
 
 final class Loader
@@ -37,7 +38,7 @@ final class Loader
     }
 
     public static function new(string $class, mixed ...$args): object
-    {        
+    {
         self::load($class);
         return new $class(...$args);
     }
@@ -66,8 +67,8 @@ final class Loader
     }
 
     public static function fromFile(string $path, mixed $data = null): mixed
-    {        
-        $file = __DIR__ . $path . '.php' ?? null;        
+    {
+        $file = __DIR__ . $path . '.php' ?? null;
         if (is_file($file) === false) {
             echo "FILE NOT FOUND: {$file}\n";
             throw new LogicException("File not found: {$file}");
@@ -77,7 +78,7 @@ final class Loader
     }
 
     public static function getModulePath(string $module): array
-    {        
+    {
         $modules = array_map(fn($module) => ucfirst($module), explode('/', $module));
         $module = end($modules);
         $path = '';
@@ -91,7 +92,7 @@ final class Loader
 
     public static function routes($module = ''): array
     {
-        [$path, $module] = Loader::getModulePath($module);        
+        [$path, $module] = Loader::getModulePath($module);
 
         return self::fromFile("/../app/Features/{$path}/{$module}Routes");
     }

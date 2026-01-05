@@ -23,6 +23,8 @@ class RepositoryFragment implements FragmentInterface
         Loader::fromFile($repo_file);
 
         $repository_class = "App\\Features\\" . str_replace('/', '\\', $path) . "\\{$module}Repository";
+
+        $ctx->guard('repository');
         $ctx->repository = new $repository_class($ctx->db);
     }
 }

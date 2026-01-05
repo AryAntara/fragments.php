@@ -46,17 +46,18 @@ final class Dispatcher
         Get $route,
         Request $request
     ): string {
-        $context = new Context();
+        $context = $route->context;
+        $context->request = $request;
 
         // Boot fragments (explicit, ordered)        
         foreach ($route->fragments as
             /** @var Closure<FragmentInterface> */
-            $fragment) {            
+            $fragment) {
             $fragment()->boot($context);
         }
 
         // Execute handler
-        $result = ($route->handler)($request, $context);
+        $result = ($route->handler)($context);
         return $result;
     }
 }

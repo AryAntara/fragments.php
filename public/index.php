@@ -8,7 +8,8 @@ use Fragments\Loader;
 
 Loader::loadFilesInDirectory('/../Fragments', [
     'Interfaces/FragmentInterface',
-    'Interfaces/RouterInterface',  
+    'Interfaces/RouterInterface',
+    'Interfaces/ContextInterface',
     'Factories/RouterFactory',
     'Factories/FragmentFactory',
     'Lib/Router/Router',
@@ -33,4 +34,4 @@ $response = $dispatcher->dispatch(
     Request::fromGlobals()
 );
 
-// echo $response;
+echo $response;
